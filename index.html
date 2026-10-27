@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Музей русского импрессионизма</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;1,400;1,500&family=Oswald:wght@400;500&family=Manrope:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#f6f1e7;--bg2:#ece4d3;--ink:#23201f;--mute:#7a7167;--line:rgba(35,32,31,.16);--mat:#fffdf8;--brick:#a8402b;--night:#14161c;
+--serif:"Playfair Display",Georgia,"Times New Roman",serif;--sans:"Manrope",system-ui,-apple-system,"Segoe UI",Arial,sans-serif;--cond:"Oswald","Arial Narrow",Impact,sans-serif;
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#15171d;--bg2:#1c1f27;--ink:#f0eadf;--mute:#9b9488;--line:rgba(240,234,223,.16);--mat:#262932;--brick:#d4573e}}
+:root[data-theme="dark"]{--bg:#15171d;--bg2:#1c1f27;--ink:#f0eadf;--mute:#9b9488;--line:rgba(240,234,223,.16);--mat:#262932;--brick:#d4573e}
+:root[data-theme="light"]{--bg:#f6f1e7;--bg2:#ece4d3;--ink:#23201f;--mute:#7a7167;--line:rgba(35,32,31,.16);--mat:#fffdf8;--brick:#a8402b}
+html{scroll-padding-top:env(safe-area-inset-top,0px);scroll-behavior:smooth}
+*,*::before,*::after{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:400 16px/1.65 var(--sans);overflow-x:hidden}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);background:var(--night);z-index:60}
+a{color:inherit;text-decoration:none}
+h1,h2,h3{font-family:var(--serif);font-weight:400;margin:0;line-height:1.08}
+.wrap{max-width:1360px;margin:0 auto;padding:0 clamp(20px,4vw,56px)}
+.lab{font:500 12px/1 var(--cond);letter-spacing:.24em;text-transform:uppercase;color:var(--brick)}
+header{position:fixed;top:env(safe-area-inset-top,0px);left:0;right:0;z-index:50;transition:background .3s}
+header:not(.solid){color:#fff}
+header.solid{background:color-mix(in srgb,var(--bg) 90%,transparent);backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
+.bar{display:flex;align-items:center;justify-content:space-between;height:72px;gap:16px}
+.logo{font:500 13px/1.15 var(--cond);letter-spacing:.2em;text-transform:uppercase;display:flex;align-items:center;gap:12px}
+.logo i{width:12px;height:34px;background:var(--brick);display:block}
+.right{display:flex;align-items:center;gap:22px}
+.tkt{font:500 12px var(--cond);letter-spacing:.2em;text-transform:uppercase;background:var(--brick);color:#fff;padding:12px 20px;transition:.3s}
+.tkt:hover{filter:brightness(1.15)}
+.burger{display:flex;align-items:center;gap:12px;background:none;border:0;color:inherit;cursor:pointer;font:500 12px var(--cond);letter-spacing:.22em;text-transform:uppercase;padding:8px 0}
+.burger b{display:block;width:28px;height:10px;border-top:2px solid currentColor;border-bottom:2px solid currentColor}
+.menu{position:fixed;inset:0;z-index:70;background:var(--night);color:#f1ebe0;padding:env(safe-area-inset-top,0px) 0 env(safe-area-inset-bottom,0px);transform:translateY(-100%);transition:transform .7s cubic-bezier(.77,0,.18,1);overflow-y:auto}
+.menu.open{transform:none}
+.menu .bar{border-bottom:1px solid rgba(255,255,255,.14)}
+.menu nav{display:grid;grid-template-columns:1.5fr 1fr;gap:48px;padding:clamp(24px,5vw,60px) 0}
+.menu nav>div:first-child a{display:block;font:italic 400 clamp(34px,5.4vw,76px)/1.12 var(--serif);transition:.3s}
+.menu nav>div:first-child a:hover,.menu a.cur{color:#e58a6a;padding-left:14px}
+.menu small{display:block;font:500 11px var(--cond);letter-spacing:.24em;text-transform:uppercase;color:#8d8f98;margin-bottom:16px}
+.menu nav>div:last-child a{display:block;padding:10px 0;border-bottom:1px solid rgba(255,255,255,.14);color:#b9bac0}
+.menu nav>div:last-child a:hover{color:#fff}
+/* hero */
+.hero{position:relative;min-height:100vh;min-height:100svh;display:flex;align-items:flex-end;background:var(--night);color:#fff;overflow:hidden}
+.hero canvas,.pg canvas{position:absolute;inset:0;width:100%;height:100%}
+.hero::after,.pg::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(14,16,22,.5),rgba(14,16,22,.05) 35%,rgba(14,16,22,.82))}
+.win{position:absolute;inset:0;z-index:2;pointer-events:none;border:clamp(8px,1.2vw,16px) solid var(--night);background:linear-gradient(90deg,transparent calc(33.33% - 2px),rgba(20,22,28,.9) 0 calc(33.33% + 2px),transparent 0 calc(66.66% - 2px),rgba(20,22,28,.9) 0 calc(66.66% + 2px),transparent 0),linear-gradient(0deg,transparent calc(32% - 2px),rgba(20,22,28,.9) 0 calc(32% + 2px),transparent 0)}
+.hero .wrap{position:relative;z-index:3;width:100%;padding-bottom:clamp(44px,8vh,100px)}
+.hero h1{font-size:clamp(44px,9vw,150px);letter-spacing:-.02em;max-width:11ch;margin-top:20px;text-shadow:0 2px 30px rgba(0,0,0,.35)}
+.hero h1 em{color:#f2b68f}
+.hero .lab{color:#f2b68f}
+.hero p{max-width:50ch;margin:28px 0 0;font-size:18px;color:rgba(255,255,255,.85)}
+.cta{display:flex;flex-wrap:wrap;gap:14px;margin-top:32px}
+.btn{display:inline-flex;align-items:center;gap:12px;padding:17px 28px;background:var(--brick);color:#fff;font:500 13px var(--cond);letter-spacing:.2em;text-transform:uppercase;transition:.3s}
+.btn:hover{gap:20px;filter:brightness(1.12)}
+.btn.g{background:none;border:1px solid currentColor}
+.btn.g:hover{background:#fff;color:var(--night)}
+section{padding:clamp(64px,10vw,140px) 0}
+.head{display:flex;justify-content:space-between;align-items:flex-end;flex-wrap:wrap;gap:20px;margin-bottom:clamp(30px,4vw,56px)}
+.head h2{font-size:clamp(36px,5.4vw,84px);margin-top:14px}
+.head h2 em{color:var(--brick)}
+.more{font:500 12px var(--cond);letter-spacing:.22em;text-transform:uppercase;border-bottom:2px solid var(--brick);padding-bottom:5px}
+.mat{background:var(--mat);padding:clamp(8px,1vw,14px);box-shadow:0 24px 50px -28px rgba(0,0,0,.55);position:relative}
+.mat .art{position:absolute;inset:clamp(8px,1vw,14px);overflow:hidden}
+.mat canvas{display:block;width:100%;height:100%}
+.feat{display:grid;grid-template-columns:1.35fr 1fr;gap:clamp(28px,5vw,80px);align-items:center}
+.feat .mat{aspect-ratio:4/3.4}
+.feat h2{font-size:clamp(32px,4.2vw,64px);margin:16px 0 22px}
+.feat p{color:var(--mute);max-width:46ch;font-size:17px}
+.tiles{display:grid;grid-template-columns:repeat(4,1fr);gap:clamp(14px,2vw,28px)}
+.tile{display:block}
+.tile .mat{aspect-ratio:3/4}
+.tile h3{font-size:clamp(22px,2vw,30px);margin:20px 0 8px;transition:.3s}
+.tile p{margin:0;color:var(--mute);font-size:15px}
+.tile:hover h3{color:var(--brick)}
+.tile:hover .art{transform:scale(1.05)}.tile .art{transition:transform .9s cubic-bezier(.2,.7,.2,1)}
+.tint{background:var(--bg2)}
+.lst a{display:grid;grid-template-columns:1fr auto;gap:24px;align-items:center;padding:clamp(20px,2.6vw,34px) 0;border-top:1px solid var(--line);transition:.35s}
+.lst a:last-child{border-bottom:1px solid var(--line)}
+.lst a:hover{padding-left:16px;color:var(--brick)}
+.lst h3{font-size:clamp(22px,2.6vw,38px)}
+.lst p{margin:8px 0 0;color:var(--mute);font-size:15px;max-width:70ch}
+.lst .ar{font:400 26px var(--sans);transition:.35s}.lst a:hover .ar{transform:translateX(8px)}
+.build{background:var(--night);color:#f1ebe0;position:relative;overflow:hidden}
+.build .win{position:absolute;inset:0;opacity:.35;border:0}
+.build .wrap{position:relative;z-index:3}
+.build h2{font-size:clamp(34px,5.4vw,84px);max-width:16ch;margin:18px 0 26px}
+.build h2 em{color:#f2b68f}
+.build p{max-width:56ch;color:#b9bac0;font-size:18px}
+.sign{display:inline-block;margin-top:34px;padding:14px 26px;border:3px solid #d4573e;color:#d4573e;font:500 clamp(26px,4vw,52px)/1 var(--cond);letter-spacing:.3em;text-shadow:0 0 22px rgba(212,87,62,.6)}
+.soc{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(14px,2vw,28px)}
+.soc a{padding:34px;background:var(--bg2);transition:.3s}
+.soc a:hover{background:var(--brick);color:#fff}
+.soc h3{font-size:28px;margin-bottom:10px}.soc p{margin:0;font-size:15px;opacity:.8}
+.ct{display:grid;grid-template-columns:repeat(4,1fr);gap:clamp(14px,2vw,28px)}
+.ct div{padding:28px;border:1px solid var(--line)}
+.ct small{display:block;font:500 11px var(--cond);letter-spacing:.24em;text-transform:uppercase;color:var(--mute);margin-bottom:12px}
+.ct p{margin:0 0 4px;font:400 clamp(19px,1.8vw,25px)/1.25 var(--serif)}
+/* inner */
+.pg{position:relative;overflow:hidden;background:var(--night);color:#fff;padding:calc(72px + clamp(60px,10vw,140px)) 0 clamp(44px,6vw,80px)}
+.pg .wrap{position:relative;z-index:3}
+.pg h1{font-size:clamp(42px,8vw,128px);margin-top:16px;letter-spacing:-.02em}
+.pg p{max-width:58ch;margin:22px 0 0;font-size:18px;color:rgba(255,255,255,.85)}
+.pg .win{border-width:clamp(6px,.8vw,12px);background:linear-gradient(90deg,transparent calc(50% - 2px),rgba(20,22,28,.85) 0 calc(50% + 2px),transparent 0)}
+.cr{font:500 11px var(--cond);letter-spacing:.22em;text-transform:uppercase;color:#f2b68f}
+.grp{display:grid;grid-template-columns:1fr 2fr;gap:clamp(24px,5vw,80px);padding:clamp(32px,5vw,60px) 0;border-top:1px solid var(--line)}
+.grp h2{font-size:clamp(28px,3.4vw,50px);position:sticky;top:96px;align-self:start}
+.rows>div{display:flex;gap:22px;padding:18px 0;border-bottom:1px solid var(--line);transition:.3s}
+.rows>div:first-child{padding-top:0}
+.rows>div:hover{padding-left:12px}
+.rows i{font:italic 400 18px var(--serif);color:var(--brick);min-width:28px}
+.rows b{display:block;font:400 clamp(20px,2vw,28px)/1.2 var(--serif)}
+.rows em{display:block;font-style:normal;color:var(--mute);margin-top:6px;max-width:60ch}
+.nxt{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;padding-top:36px;border-top:1px solid var(--line)}
+footer{background:var(--night);color:#d9d5ca;padding:clamp(54px,8vw,96px) 0 36px}
+.fg{display:grid;grid-template-columns:1.6fr 1fr 1fr 1fr;gap:40px}
+.fg h4{margin:0 0 16px;font:500 11px var(--cond);letter-spacing:.24em;text-transform:uppercase;color:#8d8f98}
+.fg a,.fg p{display:block;margin:0 0 9px;font-size:15px}.fg a:hover{color:#f2b68f}
+.fg .big{font:italic 400 clamp(26px,3vw,42px)/1.12 var(--serif);color:#fff;margin-bottom:18px}
+.fine{margin-top:50px;padding-top:22px;border-top:1px solid rgba(255,255,255,.14);display:flex;flex-wrap:wrap;justify-content:space-between;gap:10px 30px;color:#8d8f98;font-size:13px}
+.rv{opacity:0;transform:translateY(28px);transition:opacity .9s,transform .9s}.rv.in{opacity:1;transform:none}
+@media (prefers-reduced-motion:reduce){.rv{opacity:1;transform:none}}
+@media (max-width:960px){.feat,.grp,.menu nav,.fg{grid-template-columns:1fr}.tiles,.ct{grid-template-columns:1fr 1fr}.soc{grid-template-columns:1fr}.grp h2{position:static}.tkt{display:none}}
+@media (max-width:560px){.tiles,.ct{grid-template-columns:1fr}}
+
+.tg{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(14px,2vw,28px)}
+.pc{background:var(--mat);padding:clamp(24px,3vw,40px);border:1px solid var(--line);display:flex;flex-direction:column;box-shadow:0 24px 50px -32px rgba(0,0,0,.5);position:relative}
+.pc.on{border-color:var(--brick)}
+.pc h3{font-size:clamp(26px,2.6vw,38px)}
+.pc p{color:var(--mute);margin:12px 0 22px;font-size:15px;flex:1}
+.pr{font:400 clamp(34px,4vw,56px)/1 var(--serif);margin-bottom:24px}
+.pr small{font:500 12px var(--cond);letter-spacing:.2em;text-transform:uppercase;color:var(--mute);display:block;margin-top:8px}
+.ctr{display:flex;align-items:center;justify-content:space-between;border-top:1px solid var(--line);padding-top:18px}
+.ctr button{width:46px;height:46px;border:1px solid var(--line);background:none;color:var(--ink);font:300 26px/1 var(--sans);cursor:pointer;transition:.25s}
+.ctr button:hover{background:var(--brick);border-color:var(--brick);color:#fff}
+.ctr output{font:400 30px var(--serif);min-width:40px;text-align:center}
+.sum{display:flex;justify-content:space-between;align-items:center;gap:20px;flex-wrap:wrap;margin-top:clamp(18px,2vw,28px);padding:clamp(22px,3vw,34px);background:var(--night);color:#f1ebe0}
+.sum b{font:400 clamp(24px,3vw,40px) var(--serif);display:block}
+.sum span{font:500 11px var(--cond);letter-spacing:.24em;text-transform:uppercase;color:#8d8f98}
+.fr{display:grid;grid-template-columns:1fr 1fr;gap:0 clamp(24px,4vw,64px)}
+.fr div{display:flex;gap:16px;padding:16px 0;border-bottom:1px solid var(--line)}
+.fr div::before{content:"";flex:none;width:8px;height:8px;margin-top:9px;background:var(--brick)}
+.nt{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(14px,2vw,28px)}
+.nt div{padding:28px;border-left:3px solid var(--brick);background:var(--bg2)}
+.nt b{display:block;font:400 22px/1.2 var(--serif);margin-bottom:10px}
+.nt p{margin:0;color:var(--mute);font-size:15px}
+@media (max-width:960px){.tg,.nt,.fr{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<header id="hd"><div class="wrap bar"><a class="logo" href="#home"><i></i><span>Музей русского<br>импрессионизма</span></a>
+<div class="right"><a class="tkt" href="#tickets">Купить билет</a><button class="burger" id="op" aria-label="Открыть меню"><span>Меню</span><b></b></button></div></div></header>
+<div class="menu" id="menu" aria-hidden="true"><div class="wrap bar"><a class="logo" href="#home"><i></i><span>Музей русского<br>импрессионизма</span></a><button class="burger" id="cl"><span>Закрыть</span><b></b></button></div>
+<div class="wrap"><nav><div id="mn"></div><div><small>Быстрые ссылки</small><a href="#tickets">Билеты и льготы</a><a href="#visit">Как добраться</a><a href="#news">Новости</a><a href="#about">Издания</a><a href="https://t.me/rusimp_museum">Telegram</a><a href="https://vk.com/rusimp_su">ВКонтакте</a></div></nav></div></div>
+<main id="app"></main>
+<footer><div class="wrap"><div class="fg">
+<div><p class="big">Музей русского импрессионизма</p><p style="color:#8d8f98">Москва, Ленинградский проспект,<br>д. 15, стр. 11 · территория BOLSHEVIK</p><a href="tel:+74951457555">+7 (495) 145-75-55</a><a href="mailto:hello@rusimp.org">hello@rusimp.org</a></div>
+<div id="f1"></div><div id="f2"></div>
+<div><h4>Мы в сети</h4><a href="https://t.me/rusimp_museum">Telegram</a><a href="https://vk.com/rusimp_su">ВКонтакте</a><a href="https://ok.ru/rusimp">Одноклассники</a><a href="https://www.youtube.com/channel/UCzcMcG7JRAeV-pgC_3EkndA">YouTube</a></div></div>
+<div class="fine"><span>2026 © Музей русского импрессионизма</span><a href="#visit">Правила посещения</a></div></div></footer>
+<script>
+var PAL={sun:[[120,142,168],[150,168,190],[186,196,208],[222,190,160],[238,150,80],[128,150,172],[92,118,146],[64,90,120]],
+meadow:[[140,176,214],[184,206,228],[226,224,214],[196,208,150],[150,186,110],[104,150,86],[220,190,90],[168,92,120]],
+garden:[[170,160,210],[210,190,225],[240,214,214],[236,172,170],[200,120,150],[120,160,120],[90,130,120],[230,200,110]],
+snow:[[176,190,210],[206,214,226],[236,236,238],[214,206,220],[170,186,210],[120,150,190],[90,110,150],[60,80,120]]};
+function R(s){return function(){s|=0;s=s+0x6D2B79F5|0;var t=Math.imul(s^s>>>15,1|s);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296}}
+function mk(c,key,seed,sunny){
+var pal=PAL[key],r=R(seed),w=c.clientWidth||300,h=c.clientHeight||300,d=Math.min(window.devicePixelRatio||1,1.5),s=Math.min(1.4,Math.max(.6,w/900)),x;
+c.width=w*d;c.height=h*d;x=c.getContext('2d');x.scale(d,d);
+function col(z){var p=pal[Math.floor(Math.max(0,Math.min(.999,z+(r()-.5)*.22))*pal.length)];return[p[0]+(r()-.5)*28,p[1]+(r()-.5)*28,p[2]+(r()-.5)*28]}
+function dab(px,py,l,t,c,a){x.save();x.translate(px,py);x.rotate((r()-.5)*.5);x.fillStyle='rgba('+c.map(Math.round)+','+a+')';x.beginPath();x.ellipse(0,0,l/2,t/2,0,0,6.3);x.fill();x.restore()}
+x.fillStyle='rgb('+pal[3]+')';x.fillRect(0,0,w,h);
+var i,n=Math.round(w*h/(320*s*s));
+for(i=0;i<n;i++){var px=r()*w,py=r()*h;dab(px,py,(30+r()*50)*s,(8+r()*12)*s,col(py/h),.85)}
+for(i=0;i<n*1.5;i++){px=r()*w;py=r()*h;dab(px,py,(10+r()*20)*s,(3+r()*6)*s,col(py/h),.8)}
+function sun(){for(var j=0;j<(sunny?1:0);j++)dab(.68*w+(r()-.5)*46*s,.36*h+(r()-.5)*46*s,(8+r()*16)*s,(5+r()*8)*s,[250,150+r()*40,70],.9)}
+if(sunny){for(i=0;i<70;i++)sun();for(i=0;i<90;i++)dab(.68*w+(r()-.5)*70*s,.5*h+r()*.5*h,(14+r()*30)*s,(3+r()*4)*s,[246,160+r()*40,90],.55)}
+return{add:function(m,cx,cy,sp){for(var j=0;j<m;j++){var qx=cx+(r()-.5)*sp,qy=cy+(r()-.5)*sp;dab(qx,qy,(10+r()*20)*s,(3+r()*6)*s,col(qy/h),.85)}sun()},w:w,h:h}}
+var NAV=[['exhibitions','Выставки'],['events','События'],['visit','Посетителям'],['kids','Детям'],['access','Доступный музей'],['support','Поддержать'],['business','Бизнесу'],['about','О музее']];
+var P={
+exhibitions:{t:'Выставки',l:'Постоянная экспозиция, временные выставки и экскурсии.',p:'sun',g:[['Сейчас в музее',[['Постоянная экспозиция'],['Время музейных поэтов. Вадим Знаменов и его Петергоф','Герой проекта: Вадим Знаменов, директор музея-заповедника «Петергоф» и выдающийся деятель культуры.'],['«Сказка рядом». Выставка в Великом Новгороде','Путешествие в мир русской сказки: «проживаем» знакомые с детства сюжеты и убеждаемся в их неизменной актуальности.']]],['Рядом',[['Экскурсии','Сборные и индивидуальные экскурсии по расписанию для детей и взрослых'],['Новости музея']]]]},
+events:{t:'События',l:'Уникальные события для всех возрастов.',p:'meadow',g:[['Для кого',[['Взрослым','Экскурсии, лекции и мероприятия в музее'],['Детям и подросткам','Интерактивные мероприятия для гостей от 4 до 16 лет'],['Гостям с инвалидностью','Мероприятия для гостей с инвалидностью']]],['Форматы',[['Экскурсии'],['Мастер-классы'],['Спектакли и концерты'],['Лекции и встречи']]]]},
+visit:{t:'Посетителям',l:'Информация и правила для всех групп посетителей.',p:'sun',c:1,g:[['Перед визитом',[['Билеты и льготы'],['Узнать перед посещением'],['Контакты и часы работы'],['Магазин и кафе'],['Музей в подарок']]]]},
+kids:{t:'Детям',l:'Увлекательные события, созданные специально для детей.',p:'garden',g:[['Для юных гостей',[['Удобный музей'],['Советы от педагогов'],['Объясняем правила'],['События','Интерактивные мероприятия для гостей от 4 до 16 лет']]]]},
+access:{t:'Доступный музей',l:'Посещение и события для гостей с инвалидностью.',p:'snow',c:1,g:[['О музее',[['Доступное пространство'],['Билеты и льготы'],['События']]],['Для гостей',[['Незрячим и слабовидящим'],['Глухим и слабослышащим'],['Гостям с ментальными особенностями']]]]},
+support:{t:'Поддержать',l:'Присоединяйтесь и станьте частью будущего музея.',p:'garden',g:[['Клубы и круги',[['Клуб Друзей музея'],['Клуб «Серебряный улей»'],['Круг патронов'],['Корпоративная поддержка']]],['Проекты',[['Поддержать наши проекты','Сделайте вклад в развитие музея']]]]},
+business:{t:'Бизнесу',l:'Информация для корпоративных заказчиков.',p:'meadow',g:[['Сотрудничество',[['Спонсорство'],['Партнёрские проекты'],['Работа в регионах'],['Корпоративные программы и подарки'],['Мероприятия в музее','Экскурсии и мероприятия для ваших сотрудников и партнёров'],['Использование изображений из коллекции']]]]},
+about:{t:'О музее',l:'Познакомьтесь с нашим музеем поближе.',p:'sun',c:1,g:[['Музей',[['История'],['Коллекция'],['Издания','Книжная серия «Импрессионизм на бумаге» вместе с издательством «Кучково поле Музеон»']]]]},
+news:{t:'Новости',l:'Главные новости музея, наши успехи и многое другое.',p:'meadow',g:[['Лента',[['Предпродажа билетов на выставку «Время музейных поэтов»','Билеты можно было приобрести со скидкой до 21 октября.'],['«Импрессионизм на бумаге»','Книжная серия, изданная совместно с издательством «Кучково поле Музеон». В юбилейный год музей расширяет издательскую программу.'],['Десерт к 10-летию музея в баре «Шаляпин»','Тирамису «Юбилейное» в баре при отеле «Метрополь» (до 4 октября).'],['Музей закрыт на смену экспозиции до 22 октября','Готовились к выставке о Вадиме Знаменове и его Петергофе.'],['Серия карт «Тройка» к 10-летию музея','Вместе с Московским метрополитеном выпустили карты в тематическом дизайне.']]]]}};
+var NEWS=P.news.g[0][1];
+function art(p,s,sun){return'<div class="art"><canvas data-p="'+p+'" data-s="'+s+'"'+(sun?' data-u="1"':'')+'></canvas></div>'}
+function nl(){return NAV.map(function(n){return'<a href="#'+n[0]+'" data-k="'+n[0]+'">'+n[1]+'</a>'}).join('')}
+function ctc(){return'<div class="ct rv" style="margin-top:50px"><div><small>Адрес</small><p>Москва, Ленинградский проспект, д. 15, стр. 11</p></div><div><small>Связь</small><p>+7 (495) 145-75-55</p><p>hello@rusimp.org</p></div><div><small>Пешком</small><p>12 мин от Белорусской</p><p>18 мин от Динамо</p></div><div><small>Парковка по выходным</small><p>Бесплатно по билету в музей. Ориентир: красная вывеска BOLSHEVIK</p></div></div>'}
+function home(){
+var ev=[['Взрослым','Экскурсии, лекции и мероприятия в музее','sun'],['Детям и подросткам','Интерактивные мероприятия для гостей от 4 до 16 лет','garden'],['Гостям с инвалидностью','Мероприятия для гостей с инвалидностью','snow'],['Экскурсии','Сборные и индивидуальные экскурсии по расписанию','meadow']];
+var more=[['Издания','about','meadow'],['Музей в подарок','visit','garden'],['«Подписные в музее»','visit','sun'],['Корпоративным заказчикам','business','snow']];
+return'<div class="hero"><canvas data-p="sun" data-s="11" data-u="1" id="hc"></canvas><div class="win"></div><div class="wrap"><div class="lab">Москва · территория BOLSHEVIK</div><h1>Музей русского <em>импрессионизма</em></h1><p>Свет, воздух и мгновение: живопись конца XIX — первой трети XX века под крышей бывшей фабрики.</p><div class="cta"><a class="btn" href="#tickets">Купить билет →</a><a class="btn g" href="#exhibitions">Выставки</a></div></div></div>'+
+'<section><div class="wrap"><div class="feat"><div class="mat rv">'+art('sun',5,1)+'</div><div class="rv"><div class="lab">Выставка</div><h2>Время музейных поэтов. <em style="color:var(--brick)">Вадим Знаменов</em> и его Петергоф</h2><p>Герой проекта — Вадим Знаменов, директор музея-заповедника «Петергоф» и выдающийся деятель культуры.</p><div class="cta"><a class="btn" href="#exhibitions">Подробнее →</a></div></div></div></div></section>'+
+'<section class="tint"><div class="wrap"><div class="head rv"><div><div class="lab">События</div><h2>Что <em>происходит</em></h2></div><a class="more" href="#events">Все события</a></div><div class="tiles">'+ev.map(function(e,i){return'<a class="tile rv" href="#events"><div class="mat">'+art(e[2],20+i)+'</div><h3>'+e[0]+'</h3><p>'+e[1]+'</p></a>'}).join('')+'</div></div></section>'+
+'<section class="build"><div class="win"></div><div class="wrap rv"><div class="lab" style="color:#f2b68f">Здание</div><h2>Цвет импрессионистов в <em>индустриальной</em> раме</h2><p>Музей расположен на территории бывшей фабрики BOLSHEVIK. Лёгкая, светлая живопись встречает вас среди кирпичных стен и больших окон.</p><div class="sign">BOLSHEVIK</div></div></section>'+
+'<section><div class="wrap"><div class="head rv"><div><div class="lab">Новости</div><h2>В <em>музее</em></h2></div><a class="more" href="#news">Все новости</a></div><div class="lst rv">'+NEWS.slice(0,4).map(function(n){return'<a href="#news"><div><h3>'+n[0]+'</h3><p>'+n[1]+'</p></div><span class="ar">→</span></a>'}).join('')+'</div></div></section>'+
+'<section><div class="wrap"><div class="head rv"><div><div class="lab">Музей на связи</div><h2>Читайте и <em>смотрите</em></h2></div></div><div class="soc rv"><a href="https://vk.com/rusimp_su"><h3>ВКонтакте</h3><p>Факты о художниках, история создания картин, короткие видео и анонсы.</p></a><a href="https://t.me/rusimp_museum"><h3>Telegram</h3><p>Главное о событиях в музее и о том, как устроены известные полотна.</p></a><a href="https://vkvideo.ru/@rusimp"><h3>Онлайн-лекторий</h3><p>Обзоры выставок и лекции об искусстве конца XIX — первой трети XX века.</p></a></div>'+ctc()+'</div></section>'}
+function pg(k){
+var p=P[k],h='<div class="pg"><canvas data-p="'+p.p+'" data-s="'+(k.length*7)+'"'+(p.p==='sun'?' data-u="1"':'')+'></canvas><div class="win"></div><div class="wrap"><div class="cr"><a href="#home">Главная</a> / '+p.t+'</div><h1>'+p.t+'</h1><p>'+p.l+'</p></div></div><section style="padding-top:clamp(36px,5vw,70px)"><div class="wrap">';
+p.g.forEach(function(g){h+='<div class="grp rv"><h2>'+g[0]+'</h2><div class="rows">'+g[1].map(function(x,i){return'<div><i>'+(i<9?'0':'')+(i+1)+'</i><span><b>'+x[0]+'</b>'+(x[1]?'<em>'+x[1]+'</em>':'')+'</span></div>'}).join('')+'</div></div>'});
+if(p.c)h+=ctc();
+var i=NAV.map(function(n){return n[0]}).indexOf(k),nx=NAV[(i+1)%NAV.length];
+return h+'<div class="nxt" style="margin-top:50px"><a class="more" href="#home">← На главную</a><a class="more" href="#'+nx[0]+'">'+nx[1]+' →</a></div></div></section>'}
+
+/* ЦЕНЫ: впишите суммы в рублях. Пока null, страница пишет «уточняется». Детям до 18 лет вход бесплатный (нужен билет). */
+var PRICES={adult:null,reduced:null,child:0},CNT={adult:0,reduced:0,child:0};
+function money(v){return v===null?'—':(v===0?'Бесплатно':v.toLocaleString('ru-RU')+' ₽')}
+function tk(){
+var T=[['adult','Взрослый','Полный входной билет для посетителей от 18 лет.'],['reduced','Льготный','Студенты, пенсионеры и посетители с III группой инвалидности. Документ предъявляется на стойке администратора.'],['child','Детский','Посетители до 18 лет. Вход бесплатный, но билет необходимо оформить.']];
+var FREE=['Держатели карт «Друг Музея», «Друзья Музея» и участники клуба «Серебряный улей»','Студенты вузов и колледжей России по направлениям изобразительного искусства: живописцы, графики, скульпторы, архитекторы, историки искусства (в том числе иностранные студенты российских вузов)','Члены и сотрудники Российской академии художеств','Члены Союза художников России и Союза архитекторов России','Искусствоведы: члены Ассоциации искусствоведов России и её субъектов','Члены Международного Совета музеев (ICOM) и сотрудники музеев','Ветераны и инвалиды Великой Отечественной войны, ветераны боевых действий (граждане России и стран СНГ)','Герои Советского Союза, Герои России, полные кавалеры ордена Славы','Инвалиды I и II группы и один сопровождающий инвалида I или II группы или ребёнка-инвалида','Один педагог-руководитель и один сопровождающий группу учащихся при наличии экскурсионной путёвки или абонемента','Обладатели карты волонтёра «Спутник»','Представители СМИ по пресс-карте'];
+return'<div class="pg"><canvas data-p="sun" data-s="77" data-u="1"></canvas><div class="win"></div><div class="wrap"><div class="cr"><a href="#home">Главная</a> / Билеты</div><h1>Билеты</h1><p>Один входной билет открывает постоянную экспозицию и выставку «Время музейных поэтов. Вадим Знаменов и его Петергоф».</p></div></div>'+
+'<section style="padding-top:clamp(36px,5vw,70px)"><div class="wrap"><div class="head rv"><div><div class="lab">Входной билет</div><h2>Выберите <em>билеты</em></h2></div></div><div class="tg rv">'+
+T.map(function(t){var k=t[0];return'<div class="pc" id="pc-'+k+'"><h3>'+t[1]+'</h3><p>'+t[2]+'</p><div class="pr">'+money(PRICES[k])+(PRICES[k]===null?'<small>Уточняется при выборе сеанса</small>':'<small>за билет</small>')+'</div><div class="ctr"><button data-m="'+k+'" aria-label="Меньше">−</button><output id="q-'+k+'">0</output><button data-p="'+k+'" aria-label="Больше">+</button></div></div>'}).join('')+
+'</div><div class="sum rv"><div><span>Выбрано билетов</span><b id="tq">0</b></div><div><span>Итого</span><b id="tt">—</b></div><a class="btn" href="https://www.rusimp.su/tickets">Перейти к оплате →</a></div>'+
+'<p style="color:var(--mute);margin:16px 0 0;font-size:15px">Льготные билеты можно купить заранее или в кассе музея, если на выбранный сеанс остались места.</p></div></section>'+
+'<section class="tint"><div class="wrap"><div class="head rv"><div><div class="lab">Бесплатный проход</div><h2>Кому вход <em>бесплатный</em></h2></div></div><div class="fr rv">'+FREE.map(function(f){return'<div>'+f+'</div>'}).join('')+'</div></div></section>'+
+'<section><div class="wrap"><div class="head rv"><div><div class="lab">Обратите внимание</div><h2>Важно <em>знать</em></h2></div></div><div class="nt rv"><div><b>Билет нужен всем</b><p>Гостям с правом бесплатного прохода также необходим входной билет: оформите его на сайте или в кассе и предъявите документ на стойке администратора.</p></div><div><b>Только по списку</b><p>Бесплатные билеты доступны членам перечисленных творческих союзов и ассоциаций. Если организации в перечне нет, билет покупается по общему тарифу.</p></div><div><b>Нет льгот</b><p>Льготное посещение для предпенсионеров и членов многодетных семей не предусмотрено.</p></div></div>'+ctc()+'<div class="nxt" style="margin-top:50px"><a class="more" href="#visit">← Посетителям</a><a class="more" href="#events">События и экскурсии →</a></div></div></section>'}
+function upd(){var q=CNT.adult+CNT.reduced+CNT.child,ok=PRICES.adult!==null&&PRICES.reduced!==null,t=CNT.adult*(PRICES.adult||0)+CNT.reduced*(PRICES.reduced||0)+CNT.child*(PRICES.child||0);
+['adult','reduced','child'].forEach(function(k){var e=document.getElementById('q-'+k);if(e){e.textContent=CNT[k];document.getElementById('pc-'+k).classList.toggle('on',CNT[k]>0)}});
+var a=document.getElementById('tq'),b=document.getElementById('tt');if(a){a.textContent=q;b.textContent=ok?(t.toLocaleString('ru-RU')+' ₽'):(q&&!CNT.adult&&!CNT.reduced?'Бесплатно':'По тарифу сеанса')}}
+document.addEventListener('click',function(e){var b=e.target.closest('button[data-m],button[data-p]');if(!b)return;var k=b.dataset.m||b.dataset.p;CNT[k]=Math.max(0,Math.min(20,CNT[k]+(b.dataset.p?1:-1)));upd()});
+var app=document.getElementById('app'),hd=document.getElementById('hd'),m=document.getElementById('menu'),io,hero,vis=true,pr=matchMedia('(prefers-reduced-motion:reduce)').matches;
+function tg(o){m.classList.toggle('open',o);m.setAttribute('aria-hidden',!o);document.body.style.overflow=o?'hidden':''}
+function paintAll(){hero=null;app.querySelectorAll('canvas').forEach(function(c){var o=mk(c,c.dataset.p,+c.dataset.s,!!c.dataset.u);if(c.id==='hc')hero={o:o,c:c}})}
+function route(){
+var k=location.hash.slice(1);if(k!=='home'&&k!=='tickets'&&!P[k])k='home';tg(false);
+app.innerHTML=k==='home'?home():(k==='tickets'?tk():pg(k));if(k==='tickets'){CNT={adult:0,reduced:0,child:0}}
+document.getElementById('mn').innerHTML=nl();
+document.querySelectorAll('#mn a').forEach(function(a){if(a.dataset.k===k)a.className='cur'});
+window.scrollTo(0,0);paintAll();sc();upd();
+var els=app.querySelectorAll('.rv');if(io)io.disconnect();
+if('IntersectionObserver' in window){io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}})},{threshold:.1});els.forEach(function(el,i){el.style.transitionDelay=(i%4)*70+'ms';io.observe(el)})}else els.forEach(function(el){el.classList.add('in')});
+if(hero&&!pr){hero.c.parentNode.onpointermove=function(e){var b=hero.c.getBoundingClientRect();hero.o.add(16,e.clientX-b.left,e.clientY-b.top,110)}}}
+function loop(){if(hero&&vis&&!pr)hero.o.add(5,Math.random()*hero.o.w,Math.random()*hero.o.h,0);requestAnimationFrame(loop)}
+function sc(){var k=location.hash.slice(1)||'home';vis=window.scrollY<window.innerHeight;hd.classList.toggle('solid',window.scrollY>(k==='home'?window.innerHeight*.7:140))}
+window.addEventListener('scroll',sc,{passive:true});window.addEventListener('hashchange',route);
+var rt;window.addEventListener('resize',function(){clearTimeout(rt);rt=setTimeout(paintAll,250)});
+document.getElementById('op').onclick=function(){tg(true)};document.getElementById('cl').onclick=function(){tg(false)};
+var L=nl().replace(/ data-k="\w+"/g,'').split('</a>');
+document.getElementById('f1').innerHTML='<h4>Музей</h4>'+L.slice(0,4).join('</a>')+'</a>';
+document.getElementById('f2').innerHTML='<h4>Ещё</h4>'+L.slice(4,8).join('</a>')+'</a><a href="#news">Новости</a>';
+route();loop();
+</script>
+</body>
+</html>
